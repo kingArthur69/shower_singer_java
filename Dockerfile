@@ -9,7 +9,7 @@ COPY src src
 #Experimental feature to cache maven dependecy
 #RUN --mount=type=cache,target=/root/.m2 ./mvnw install -DskipTests
 
-RUN ./mvnw install -DskipTests
+RUN chmod +x mvnw && ./mvnw install -DskipTests
 
 #RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
