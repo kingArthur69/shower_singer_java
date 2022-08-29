@@ -44,7 +44,5 @@ public class BootStrapLoader implements ApplicationListener<ContextRefreshedEven
             user2.getRoles().add(new Role("ROLE_USER"));
             userRepository.save(user2);
         }
-
-
     }
 }
