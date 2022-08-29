@@ -4,7 +4,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - JAVA_OPTS=-Dspring.datasource.url=jdbc:mysql://database:3306/filesDB -Dfile.save-dir=/savedAudio -Dspring.datasource.username=root -Dspring.datasource.password=mauFJcuf5dhRMQrjj -Dspring.jpa.generate-ddl=true -Dspring.jpa.show-sql=true
+      - JAVA_OPTS=-Dspring.datasource.url=jdbc:mysql://database:3306/filesDB -Dfile.save-dir=/savedAudio -Dspring.datasource.username=root -Dspring.datasource.password=mauFJcuf5dhRMQrjj -Dpython.baseUrl=http://python:5000
 
   database:
     image: mysql:5.7
