@@ -1,5 +1,6 @@
 package com.amihaliov.shower_singer_java.service;
 
+import com.amihaliov.shower_singer_java.model.PythonServiceProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -25,17 +26,19 @@ public class PythonServiceImpl implements PythonService {
 
     private final WebClient client;
 
-    public PythonServiceImpl() {
+    public PythonServiceImpl(PythonServiceProperties pythonServiceProperties) {
         client = WebClient.builder()
-                .baseUrl("http://localhost:5000")
+                .baseUrl(pythonServiceProperties.getBaseUrl())
                 .build();
     }
+
     @Override
     public Path mergeAudio(Path vocals, Path song) {
         try {
             MultipartBodyBuilder builder = new MultipartBodyBuilder();
             builder.part("vocals", new FileSystemResource(vocals));
             builder.part("song", new FileSystemResource(song));
+            builder.part("position", 0);
 
             return makePost(BodyInserters.fromMultipartData(builder.build()));
         } catch (Exception e) {
@@ -50,6 +53,7 @@ public class PythonServiceImpl implements PythonService {
             LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
             map.add("vocals", vocals.getResource());
             map.add("song", song.getResource());
+            map.add("position", 0);
 
             return makePost(BodyInserters.fromMultipartData(map));
         } catch (Exception e) {

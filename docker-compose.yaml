@@ -1,0 +1,26 @@
+services:
+  java:
+    image: ghcr.io/kingarthur69/shower_singer_java:master
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Dspring.datasource.url=jdbc:mysql://database:3306/filesDB -Dfile.save-dir=/savedAudio -Dspring.datasource.username=root -Dspring.datasource.password=mauFJcuf5dhRMQrjj -Dpython.baseUrl=http://python:5000
+
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: filesDB
+      MYSQL_ROOT_PASSWORD: mauFJcuf5dhRMQrjj
+    #      MYSQL_USER: root
+    #      - MYSQL_PASSWORD: secret
+    ports:
+      - "33061:3306"
+    volumes:
+      - C:\docker\dockerVol\mysql:/var/lib/mysql
+
+  python:
+    image: ghcr.io/kingarthur69/shower-singer-combiner:master
+    ports:
+      - "5000:5000"
+    volumes:
+      - C:\docker\dockerVol\audio\model:/app/pretrained_models
