@@ -26,13 +26,14 @@ public class BootStrapLoader implements ApplicationListener<ContextRefreshedEven
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
+        Role role_user = new Role("ROLE_USER");
         if (!userRepository.findByUserName("admin").isPresent()) {
             User user = new User();
             user.setUserName("admin");
             user.setPassword(passwordEncoder.encode("admin"));
             user.setRoles(Arrays.asList(
                     new Role("ROLE_ADMIN"),
-                    new Role("ROLE_USER")
+                    role_user
             ));
             userRepository.save(user);
         }
@@ -41,7 +42,7 @@ public class BootStrapLoader implements ApplicationListener<ContextRefreshedEven
             User user2 = new User();
             user2.setUserName("user");
             user2.setPassword(passwordEncoder.encode("user"));
-            user2.getRoles().add(new Role("ROLE_USER"));
+            user2.getRoles().add(role_user);
             userRepository.save(user2);
         }
     }
