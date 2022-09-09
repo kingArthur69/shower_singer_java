@@ -23,6 +23,6 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
 EXPOSE 8080
 
-ENV JAVA_OPTS "-Dspring.datasource.url=jdbc:mysql://host.docker.internal:3306/filesDB -Dfile.save-dir=/savedAudio"
+ENV JAVA_OPTS "-Dspring.datasource.url=jdbc:mysql://host.docker.internal:3306/filesdb -Dfile.save-dir=/savedAudio"
 
 ENTRYPOINT java $JAVA_OPTS -cp "app:app/lib/*" com.amihaliov.shower_singer_java.ShowerSingerJavaApplication

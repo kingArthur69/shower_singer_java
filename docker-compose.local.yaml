@@ -1,6 +1,7 @@
 services:
   java:
-    image: ghcr.io/kingarthur69/shower_singer_java:master
+    build:
+      context: .
     ports:
       - "8080:8080"
     environment:
@@ -9,17 +10,17 @@ services:
   database:
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: filesdb
+      MYSQL_DATABASE: filesDB
       MYSQL_ROOT_PASSWORD: mauFJcuf5dhRMQrjj
     ports:
       - "33061:3306"
     volumes:
-      - /mysql:/var/lib/mysql
-      - ./src/main/resources/scripts/:/docker-entrypoint-initdb.d/
+      - C:\docker\dockerVol\mysql:/var/lib/mysql
+      - C:\Projects\shower_singer_java\src\main\resources\scripts\:/docker-entrypoint-initdb.d/
 
   python:
     image: ghcr.io/kingarthur69/shower-singer-combiner:master
     ports:
       - "5000:5000"
     volumes:
-      - /model:/app/pretrained_models
+      - C:\docker\dockerVol\audio\model:/app/pretrained_models
